@@ -66,6 +66,7 @@ fun CharactersScreen(
                         Text(
                             c.name,
                             style = MaterialTheme.typography.titleMedium,
+                            color = MaterialTheme.colorScheme.primary,
                             maxLines = 1,
                             overflow = TextOverflow.Ellipsis
                         )
