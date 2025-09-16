@@ -7,51 +7,48 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import androidx.navigation.compose.rememberNavController
 import androidx.navigation.toRoute
+import androidx.navigation.compose.rememberNavController
 import com.naguirrel.plataslabs8_muchos.ui.characters.CharactersRoute
+import com.naguirrel.plataslabs8_muchos.ui.characters.CharacterDetailRoute
 import com.naguirrel.plataslabs8_muchos.ui.characters.CharactersScreen
-import com.naguirrel.plataslabs8_muchos.ui.detail.CharacterDetailRoute
-import com.naguirrel.plataslabs8_muchos.ui.detail.CharacterDetailScreen
+import com.naguirrel.plataslabs8_muchos.ui.characters.CharacterDetailScreen
+import com.naguirrel.plataslabs8_muchos.ui.home.HomeRoute
+import com.naguirrel.plataslabs8_muchos.ui.home.HomeScreen
 import com.naguirrel.plataslabs8_muchos.ui.login.LoginRoute
 import com.naguirrel.plataslabs8_muchos.ui.login.LoginScreen
+import com.naguirrel.plataslabs8_muchos.ui.theme.PlatasLabs8_muchosTheme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            Surface(color = MaterialTheme.colorScheme.background) {
+            PlatasLabs8_muchosTheme {
                 val nav = rememberNavController()
-
-                NavHost(
-                    navController = nav,
-                    startDestination = LoginRoute
-                ) {
-                    composable<LoginRoute> {
-                        LoginScreen(
-                            onStart = {
-                                nav.navigate(CharactersRoute) {
-                                    popUpTo(LoginRoute) { inclusive = true }
+                Surface(color = MaterialTheme.colorScheme.background) {
+                    NavHost(
+                        navController = nav,
+                        startDestination = LoginRoute
+                    ) {
+                        composable<LoginRoute> {
+                            LoginScreen(
+                                onStart = {
+                                    nav.navigate(HomeRoute) {
+                                        popUpTo(LoginRoute) { inclusive = true }
+                                    }
+                                },
+                                nombreYCarne = "Tu nombre – #Carné"
+                            )
+                        }
+                        composable<HomeRoute> {
+                            HomeScreen(
+                                onLogout = {
+                                    nav.navigate(LoginRoute) {
+                                        popUpTo(HomeRoute) { inclusive = true }
+                                    }
                                 }
-                            },
-                            nombreYCarne = "Norman Aguirre - #24479"
-                        )
-                    }
-
-                    composable<CharactersRoute> {
-                        CharactersScreen(
-                            onCharacterClick = { id ->
-                                nav.navigate(CharacterDetailRoute(id))
-                            }
-                        )
-                    }
-
-                    composable<CharacterDetailRoute> { entry ->
-                        val args = entry.toRoute<CharacterDetailRoute>()
-                        CharacterDetailScreen(
-                            id = args.id,
-                            onBack = { nav.popBackStack() }
-                        )
+                            )
+                        }
                     }
                 }
             }

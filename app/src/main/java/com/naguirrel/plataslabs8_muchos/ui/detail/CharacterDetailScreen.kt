@@ -17,7 +17,7 @@ import androidx.compose.ui.res.painterResource
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.naguirrel.plataslabs8_muchos.data.CharacterDb
-import androidx.compose.material3.TopAppBarDefaults
+
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -32,10 +32,6 @@ fun CharacterDetailScreen(
         topBar = {
             CenterAlignedTopAppBar(
                 title = { Text("Character details") },
-                colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
-                    containerColor = MaterialTheme.colorScheme.surface,
-                    titleContentColor = MaterialTheme.colorScheme.primary,
-                    navigationIconContentColor = MaterialTheme.colorScheme.primary),
                 navigationIcon = {
                     IconButton(onClick = onBack) {
                         Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Back")
@@ -63,7 +59,7 @@ fun CharacterDetailScreen(
                     .clip(CircleShape)
             )
             Spacer(Modifier.height(12.dp))
-            Text(c.name,  color = MaterialTheme.colorScheme.primary, style = MaterialTheme.typography.titleLarge, fontWeight = FontWeight.SemiBold)
+            Text(c.name, style = MaterialTheme.typography.titleLarge, fontWeight = FontWeight.SemiBold)
             Spacer(Modifier.height(24.dp))
 
             Column(Modifier.padding(horizontal = 32.dp)) {
