@@ -17,13 +17,13 @@ import com.naguirrel.plataslabs8_muchos.ui.home.HomeRoute
 import com.naguirrel.plataslabs8_muchos.ui.home.HomeScreen
 import com.naguirrel.plataslabs8_muchos.ui.login.LoginRoute
 import com.naguirrel.plataslabs8_muchos.ui.login.LoginScreen
-import com.naguirrel.plataslabs8_muchos.ui.theme.PlatasLabs8_muchosTheme
+import com.naguirrel.plataslabs8_muchos.ui.theme.RMTheme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            PlatasLabs8_muchosTheme {
+            RMTheme {
                 val nav = rememberNavController()
                 Surface(color = MaterialTheme.colorScheme.background) {
                     NavHost(
@@ -37,7 +37,7 @@ class MainActivity : ComponentActivity() {
                                         popUpTo(LoginRoute) { inclusive = true }
                                     }
                                 },
-                                nombreYCarne = "Tu nombre – #Carné"
+                                nombreYCarne = "Norman Aguirre - 24479"
                             )
                         }
                         composable<HomeRoute> {
