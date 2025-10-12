@@ -21,6 +21,7 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navigation
 import androidx.navigation.toRoute
+import com.naguirrel.plataslabs8_muchos.nav.LoginRoute
 import com.naguirrel.plataslabs8_muchos.ui.characters.CharacterDetailRoute
 import com.naguirrel.plataslabs8_muchos.ui.characters.CharacterDetailScreen
 import com.naguirrel.plataslabs8_muchos.ui.characters.CharactersGraph
@@ -127,7 +128,9 @@ fun HomeScreen(
             }
             composable<ProfileRoute> {
                 ProfileScreen(
-                    onLogout = onLogout
+                    onLoggedOut = {
+                        nav.navigate(LoginRoute) { popUpTo(0) }
+                    }
                 )
             }
         }
