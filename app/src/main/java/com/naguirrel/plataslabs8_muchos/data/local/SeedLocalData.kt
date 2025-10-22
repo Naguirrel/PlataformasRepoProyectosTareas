@@ -1,21 +1,39 @@
 package com.naguirrel.plataslabs8_muchos.data.local
 
 import android.content.Context
+import com.naguirrel.plataslabs8_muchos.data.Character
+import com.naguirrel.plataslabs8_muchos.data.Location
 import com.naguirrel.plataslabs8_muchos.data.CharacterDb
 import com.naguirrel.plataslabs8_muchos.data.LocationDb
-import com.naguirrel.plataslabs8_muchos.data.local.entity.Character
-import com.naguirrel.plataslabs8_muchos.data.local.entity.Location
 
+/**
+ * Siembras iniciales usando INSERT REPLACE.
+ * Llama a esta función en tu flujo de login/sincronización inicial.
+ */
 suspend fun seedLocalData(context: Context) {
-    val db = DbProvider.get(context)
+    val db = AppDatabase.getInstance(context)
 
     val characters = CharacterDb().getAllCharacters().map {
-        Character(it.id, it.name, it.status, it.species, it.gender, it.image)
-    }
-    val locations = LocationDb().getAllLocations().map {
-        Location(it.id, it.name, it.type, it.dimension)
+        Character(
+            id = it.id,
+            name = it.name,
+            status = it.status,
+            species = it.species,
+            gender = it.gender,
+            image = it.image
+        )
     }
 
-    db.characterDao().upsertAll(characters)
-    db.locationDao().upsertAll(locations)
+    val locations = LocationDb().getAllLocations().map {
+        Location(
+            id = it.id,
+            name = it.name,
+            type = it.type,
+            dimension = it.dimension
+        )
+    }
+
+    // Inserta (reemplaza si ya existe)
+    db.characterDao().insertAll(characters)
+    db.locationDao().insertAll(locations)
 }
